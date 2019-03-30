@@ -132,5 +132,4 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
         let height = view.frame.height * 0.35
         return CGSize(width: width, height: height)
     }
-    
 }

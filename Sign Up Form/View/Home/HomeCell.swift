@@ -13,9 +13,53 @@ class HomeCell: UICollectionViewCell {
     
     var event: Event? {
         didSet {
+            postTitleLabel.text = event?.Name
+            priceLabel.text = "$\(event?.EntranceFee ?? 0.0)"
+            
+            participantsLeftAttributedString()
+            postAndAgeAttributedString()
+            dateConvertion()
+            
             guard let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) else {return}
             postImageView.sd_setImage(with: url)
-            postTitleLabel.text = event?.Name
+        }
+    }
+    
+    func postAndAgeAttributedString() {
+        let postLevelAttributedString = NSMutableAttributedString(string: "Level: ", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Medium", size: 11)!, NSAttributedString.Key.foregroundColor : UIColor.gray])
+        postLevelAttributedString.append(NSAttributedString(string: event?.Level ?? "N/A", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Medium", size: 11)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.1490196078, green: 0.6, blue: 0.9843137255, alpha: 1)]))
+        postLevelLabel.attributedText = postLevelAttributedString
+        
+        let ageAttributedString = NSMutableAttributedString(string: "Age: ", attributes: [NSMutableAttributedString.Key.font : UIFont(name: "HelveticaNeue-Medium", size: 11)!,
+                NSAttributedString.Key.foregroundColor : UIColor.gray])
+        ageAttributedString.append(NSAttributedString(string: "18", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Medium", size: 11)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.1490196078, green: 0.6, blue: 0.9843137255, alpha: 1)]))
+        postAgeLimitLabel.attributedText = ageAttributedString
+        
+    }
+    
+    func dateConvertion() {
+        
+        guard let eventDate = event?.EventDate else {return}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        newDateFormatter.dateFormat = "MMM d, yyyy"
+        
+        if let date = dateFormatter.date(from: eventDate) {
+            let realDate = newDateFormatter.string(from: date)
+            dateLabel.text = "Date: \(realDate)"
+        }
+    }
+    
+    func participantsLeftAttributedString() {
+        if let spotsLeft = event?.NbParticipantsLeft {
+            let participantsLeftAttributedString = NSMutableAttributedString(string: String(spotsLeft), attributes: [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 12)!, NSAttributedString.Key.foregroundColor : UIColor.black])
+            participantsLeftAttributedString.append(NSAttributedString(string: " spots left", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 12)!, NSAttributedString.Key.foregroundColor : UIColor.gray]))
+            participentsLeftLabel.attributedText = participantsLeftAttributedString
         }
     }
     
@@ -87,8 +131,8 @@ class HomeCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "5 spots left"
-        label.font = UIFont(name: "HelveticaNeue", size: 12)
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+//        label.font = UIFont(name: "HelveticaNeue", size: 12)
+//        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.allowsDefaultTighteningForTruncation = true
         return label
     }()
@@ -132,17 +176,13 @@ class HomeCell: UICollectionViewCell {
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        
     }
     
     @objc func handleFavoriteButton() {
         print("Fav tapped")
     }
     
-    
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -14,7 +14,6 @@ class PostEventDetailsCell: UICollectionViewCell {
         didSet {
             postTitleLabel.text = event?.Name
             addressLabel.text = event?.Address
-            
         }
     }
     
