@@ -14,10 +14,11 @@ struct Event: Codable, Equatable {
     let Name: String
     var Address: String
 //    var Category: String
-//    var Description: String?
+    var Description: String?
     var EntranceFee: Decimal
 //    var EventCategory: String
     var EventDate: String
+    var NbParticipants: Int
     var NbParticipantsTaken: Int?
     var NbParticipantsLeft: Int?
 //    var IsFavorited: Bool
@@ -25,8 +26,8 @@ struct Event: Codable, Equatable {
 //    var Longitude: Double
     var Level: String
     var MainEventPhoto: String?
-//    var PhoneNumber: String
-//    var EventPhotoCollection: [String]?
+    var PhoneNumber: String
+    var EventPhotoCollection: [String]?
     
 }
 

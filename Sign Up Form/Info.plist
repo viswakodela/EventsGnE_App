@@ -8,6 +8,7 @@
 	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+        <string>tel</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>

@@ -248,7 +248,7 @@ class APIService {
             ]
             
             Alamofire.request(postURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON(completionHandler: { (dataResp) in
-//                print(dataResp)
+                print(dataResp)
                 guard let data = dataResp.data else {return}
                 
                 do {

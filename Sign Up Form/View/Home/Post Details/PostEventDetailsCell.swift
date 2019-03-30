@@ -13,8 +13,46 @@ class PostEventDetailsCell: UICollectionViewCell {
     var event: Event? {
         didSet {
             postTitleLabel.text = event?.Name
-            addressLabel.text = event?.Address
+            addressAttributedText()
+            entrenceAttributedText()
+            eventLevelAttributedText()
+            descriptionDetailsLabel.text = event?.Description
+            
+            if let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) {
+                userImageView.sd_setImage(with: url)
+                
+                if userImageView.image == nil {
+                    userImageView.image = #imageLiteral(resourceName: "icons8-account-filled-100")
+                }
+            } else {
+                userImageView.image = #imageLiteral(resourceName: "icons8-account-filled-100")
+            }
         }
+    }
+    
+    fileprivate func addressAttributedText() {
+        let addressAttributedString = NSMutableAttributedString(string: "⚲", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 14)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3176470588, green: 0.4470588235, blue: 0.8078431373, alpha: 1)])
+        addressAttributedString.append(NSAttributedString(string: " \(event?.Address ?? "N/A")", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 12)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3176470588, green: 0.4470588235, blue: 0.8078431373, alpha: 1)]))
+        addressLabel.attributedText = addressAttributedString
+    }
+    
+    fileprivate func entrenceAttributedText() {
+        
+        let entrenceAttributeText = NSMutableAttributedString(string: "Entrence: ", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        
+        if event?.EntranceFee == 0 {
+            entrenceAttributeText.append(NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!]))
+        } else {
+            entrenceAttributeText.append(NSAttributedString(string: "﹩\(event?.EntranceFee ?? 0)", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]))
+        }
+        
+        entrenceLabel.attributedText = entrenceAttributeText
+    }
+    
+    fileprivate func eventLevelAttributedText() {
+        let levelAttributedText = NSMutableAttributedString(string: "Level: ", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        levelAttributedText.append(NSAttributedString(string: event?.Level ?? "N/A", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]))
+        levelLabel.attributedText = levelAttributedText
     }
     
     override init(frame: CGRect) {
@@ -35,6 +73,7 @@ class PostEventDetailsCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "6221 Bay Mills Street, Toronto"
         label.font = UIFont(name: "HelveticaNeue", size: 12)
+        label.textColor = #colorLiteral(red: 0.3176470588, green: 0.4470588235, blue: 0.8078431373, alpha: 1)
         return label
     }()
     
@@ -59,15 +98,15 @@ class PostEventDetailsCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Description"
         label.font = UIFont(name: "HelveticaNeue", size: 18)
+        label.textColor = #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)
         return label
     }()
     
     let descriptionDetailsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue. HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeueHelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeueHelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeueHelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeueHelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue HelveticaNeue"
         label.font = UIFont(name: "HelveticaNeue", size: 16)
-        label.textColor = .lightGray
+        label.textColor = #colorLiteral(red: 0.2039215686, green: 0.2039215686, blue: 0.2039215686, alpha: 1)
         label.numberOfLines = 0
         return label
     }()
@@ -87,7 +126,7 @@ class PostEventDetailsCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Viswajith Kodela"
         label.font = UIFont(name: "HelveticaNeue", size: 13)
-        label.textColor = .lightGray
+        label.textColor = #colorLiteral(red: 0.2039215686, green: 0.2039215686, blue: 0.2039215686, alpha: 1)
         label.numberOfLines = 0
         return label
     }()
@@ -116,14 +155,10 @@ class PostEventDetailsCell: UICollectionViewCell {
         
         userStackView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-//        userStackView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        userStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        
         let middleStackView = UIStackView(arrangedSubviews: [entrenceLevelStactView, userStackView])
         middleStackView.translatesAutoresizingMaskIntoConstraints = false
         middleStackView.axis = .horizontal
         middleStackView.alignment = .top
-//        middleStackView.spacing = 10
         
         let descriptionDetailsStackView = UIStackView(arrangedSubviews: [descriptionLabel, descriptionDetailsLabel])
         descriptionDetailsStackView.translatesAutoresizingMaskIntoConstraints = false

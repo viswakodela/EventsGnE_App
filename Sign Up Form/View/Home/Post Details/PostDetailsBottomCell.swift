@@ -10,6 +10,16 @@ import UIKit
 
 class PostDetailsBottomCell: UICollectionViewCell {
     
+    var event: Event? {
+        didSet {
+            maxParticipantsAttributedString()
+            takenAttributedString()
+            dateAttributedString()
+            timeLabelAttributedString()
+            leftSpotsAttributedString()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -18,7 +28,6 @@ class PostDetailsBottomCell: UICollectionViewCell {
     let maxParticipantsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Max Participants:"
         label.font = UIFont(name: "HelveticaNeue", size: 16)
         return label
     }()
@@ -60,6 +69,7 @@ class PostDetailsBottomCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Join the Event"
         label.textAlignment = .center
+        label.textColor = #colorLiteral(red: 0.5137254902, green: 0.5137254902, blue: 0.5137254902, alpha: 1)
         label.font = UIFont(name: "HelveticaNeue", size: 16)
         return label
     }()
@@ -68,10 +78,73 @@ class PostDetailsBottomCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("CALL", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.2196078431, green: 0.462745098, blue: 0.7294117647, alpha: 1)
+        button.backgroundColor = #colorLiteral(red: 0.1490196078, green: 0.6, blue: 0.9843137255, alpha: 1)
         return button
     }()
+    
+    fileprivate func maxParticipantsAttributedString() {
+        
+        let maxParticipantsAttributedString = NSMutableAttributedString(string: "Max Participants: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        maxParticipantsAttributedString.append(NSAttributedString(string: "\(event?.NbParticipants ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+        maxParticipantsLabel.attributedText = maxParticipantsAttributedString
+    }
+    
+    fileprivate func takenAttributedString() {
+        
+        let takenSeatsAttributedString = NSMutableAttributedString(string: "Taken: ", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        takenSeatsAttributedString.append(NSAttributedString(string: "\(event?.NbParticipantsTaken ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+        takenSeatsLabel.attributedText = takenSeatsAttributedString
+    }
+    
+    fileprivate func dateAttributedString() {
+        
+        guard let eventDate = event?.EventDate else {return}
+        
+        let dateAttributedText = NSMutableAttributedString(string: "Date: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        newDateFormatter.dateFormat = "MMM d, yyyy"
+        
+        if let date = dateFormatter.date(from: eventDate) {
+            let realDate = newDateFormatter.string(from: date)
+            dateAttributedText.append(NSAttributedString(string: realDate, attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+            dateLabel.attributedText = dateAttributedText
+        }
+    }
+    
+    fileprivate func timeLabelAttributedString() {
+        
+        let timeAttributedString = NSMutableAttributedString(string: "Time: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        guard let eventDate = event?.EventDate else {return}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+        
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        newDateFormatter.dateFormat = "HH:mm a"
+        
+        if let date = dateFormatter.date(from: eventDate) {
+            let time = newDateFormatter.string(from: date)
+            timeAttributedString.append(NSAttributedString(string: time, attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+            timeLabel.attributedText =  timeAttributedString
+        }
+        
+    }
+    
+    fileprivate func leftSpotsAttributedString() {
+        let leftAttributedString = NSMutableAttributedString(string: "Left: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
+        leftAttributedString.append(NSAttributedString(string: "\(event?.NbParticipantsLeft ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+        leftSeatsLabel.attributedText = leftAttributedString
+    }
     
     func setupLayout() {
         
@@ -80,14 +153,14 @@ class PostDetailsBottomCell: UICollectionViewCell {
         topStackView.spacing = 10
         topStackView.axis = .horizontal
         
-        maxParticipantsLabel.widthAnchor.constraint(equalTo: topStackView.widthAnchor, multiplier: 0.65).isActive = true
+        maxParticipantsLabel.widthAnchor.constraint(equalTo: topStackView.widthAnchor, multiplier: 0.55).isActive = true
         
         let middleStackView = UIStackView(arrangedSubviews: [takenSeatsLabel, timeLabel])
         middleStackView.translatesAutoresizingMaskIntoConstraints = false
         middleStackView.spacing = 10
         middleStackView.axis = .horizontal
         
-        takenSeatsLabel.widthAnchor.constraint(equalTo: middleStackView.widthAnchor, multiplier: 0.65).isActive = true
+        takenSeatsLabel.widthAnchor.constraint(equalTo: middleStackView.widthAnchor, multiplier: 0.55).isActive = true
         
         let alltogetherStackView = UIStackView(arrangedSubviews: [topStackView, middleStackView, leftSeatsLabel])
         alltogetherStackView.translatesAutoresizingMaskIntoConstraints = false

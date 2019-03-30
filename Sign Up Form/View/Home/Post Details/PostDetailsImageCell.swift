@@ -14,9 +14,9 @@ class PostDetailsImageCell: UICollectionViewCell {
     
     var event: Event? {
         didSet {
-            guard let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) else {return}
-            postImageView.sd_setImage(with: url)
+            guard let imageURL = event?.EventPhotoCollection?.first, let url = URL(string: imageURL) else {return}
             
+            postImageView.sd_setImage(with: url)
         }
     }
     
@@ -25,8 +25,8 @@ class PostDetailsImageCell: UICollectionViewCell {
         setupLayout()
     }
     
-    let postImageView: CustomImageView = {
-        let iv = CustomImageView()
+    let postImageView: UIImageView = {
+        let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "star-trek-logo")
@@ -59,5 +59,4 @@ class PostDetailsImageCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

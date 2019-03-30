@@ -78,8 +78,7 @@ class PostDetailsController: UIViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var changeY = scrollView.contentOffset.y / 130
-//        var width = view.frame.width + changeY * 2
-//        width = max(width, view.frame.width)
+        
         if changeY > 1 {
             changeY = 1
             self.navigationController?.navigationBar.backgroundColor = UIColor(white: 0.7, alpha: 0.7)
@@ -106,7 +105,15 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postBottomCellID, for: indexPath) as! PostDetailsBottomCell
+            cell.event = event
+            cell.callButton.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
             return cell
+        }
+    }
+    
+    @objc func callButtonTapped() {
+        if let phone = event?.PhoneNumber {
+            phone.makeAColl()
         }
     }
     
@@ -115,6 +122,7 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
         if indexPath.item == 0 {
             
             let cell = PostEventDetailsCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: .greatestFiniteMagnitude))
+            cell.event = event
             cell.layoutIfNeeded()
             let estimatedSize = cell.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude))
             return CGSize(width: view.frame.width, height: estimatedSize.height)
@@ -133,5 +141,38 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
         let width = view.frame.width
         let height = view.frame.height * 0.35
         return CGSize(width: width, height: height)
+    }
+}
+
+extension String {
+    
+    enum RegularExpressions: String {
+        case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
+    }
+    
+    func isValid(regex: RegularExpressions) -> Bool {
+        return isValid(regex: regex.rawValue)
+    }
+    
+    func isValid(regex: String) -> Bool {
+        let matches = range(of: regex, options: .regularExpression)
+        return matches != nil
+    }
+    
+    func onlyDigits() -> String {
+        let filtredUnicodeScalars = unicodeScalars.filter{CharacterSet.decimalDigits.contains($0)}
+        return String(String.UnicodeScalarView(filtredUnicodeScalars))
+    }
+    
+    func makeAColl() {
+        if isValid(regex: .phone) {
+            if let url = URL(string: "tel://\(self.onlyDigits())"), UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }
     }
 }
