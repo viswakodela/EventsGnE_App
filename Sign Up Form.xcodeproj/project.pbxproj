@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8CF3990163689973223C4D87 /* Pods_Sign_Up_Form.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215085C3568132EC80A4B2E3 /* Pods_Sign_Up_Form.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		BD1E67F7224F0661008A4A9F /* PostDetailsBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1E67F6224F0661008A4A9F /* PostDetailsBottomCell.swift */; };
 		BD287BAA22491B1E00FD2DA5 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD287BA922491B1E00FD2DA5 /* HomeController.swift */; };
 		BD287BAE224923D500FD2DA5 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD287BAD224923D500FD2DA5 /* HomeCell.swift */; };
 		BD287BB0224947A300FD2DA5 /* PostDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD287BAF224947A300FD2DA5 /* PostDetailsController.swift */; };
@@ -43,6 +44,7 @@
 		1D47BCFF420C3D3B529645A4 /* Pods-Sign Up Form.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sign Up Form.debug.xcconfig"; path = "Target Support Files/Pods-Sign Up Form/Pods-Sign Up Form.debug.xcconfig"; sourceTree = "<group>"; };
 		215085C3568132EC80A4B2E3 /* Pods_Sign_Up_Form.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sign_Up_Form.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A1B0AD1EC1210C53DBAA001 /* Pods-Sign Up Form.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sign Up Form.release.xcconfig"; path = "Target Support Files/Pods-Sign Up Form/Pods-Sign Up Form.release.xcconfig"; sourceTree = "<group>"; };
+		BD1E67F6224F0661008A4A9F /* PostDetailsBottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsBottomCell.swift; sourceTree = "<group>"; };
 		BD287BA922491B1E00FD2DA5 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		BD287BAD224923D500FD2DA5 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		BD287BAF224947A300FD2DA5 /* PostDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				BD8C6A1A22494ECA008A2583 /* PostDetailsImageCell.swift */,
 				BD8C6A1E224954DF008A2583 /* ImageCell.swift */,
 				BD8C6A202249562D008A2583 /* PostEventDetailsCell.swift */,
+				BD1E67F6224F0661008A4A9F /* PostDetailsBottomCell.swift */,
 			);
 			path = "Post Details";
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				BD8C6A1B22494ECA008A2583 /* PostDetailsImageCell.swift in Sources */,
 				BDB7944B223D969400B181D2 /* UserDefaultsExtension.swift in Sources */,
 				BD8C6A1F224954DF008A2583 /* ImageCell.swift in Sources */,
+				BD1E67F7224F0661008A4A9F /* PostDetailsBottomCell.swift in Sources */,
 				BD8C6A1D22494F18008A2583 /* PostImagesController.swift in Sources */,
 				BDB79449223D8D9900B181D2 /* UserDetailsController.swift in Sources */,
 				BDB7945C223F66FF00B181D2 /* UserDetailsCityAddressCell.swift in Sources */,

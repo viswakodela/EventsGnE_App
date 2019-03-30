@@ -13,6 +13,8 @@ class HomeCell: UICollectionViewCell {
     
     var event: Event? {
         didSet {
+            guard let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) else {return}
+            postImageView.sd_setImage(with: url)
             postTitleLabel.text = event?.Name
         }
     }
@@ -27,7 +29,7 @@ class HomeCell: UICollectionViewCell {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "star-trek-logo")
-        iv.backgroundColor = .red
+        iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
         return iv
     }()

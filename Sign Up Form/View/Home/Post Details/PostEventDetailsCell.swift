@@ -10,6 +10,14 @@ import UIKit
 
 class PostEventDetailsCell: UICollectionViewCell {
     
+    var event: Event? {
+        didSet {
+            postTitleLabel.text = event?.Name
+            addressLabel.text = event?.Address
+            
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()

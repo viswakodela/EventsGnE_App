@@ -12,8 +12,11 @@ class PostDetailsController: UIViewController {
     
     private let postImagesCellID = "postImagesCellID"
     private let postTitleCellID = "postTitleCellID"
+    private let postBottomCellID = "postBottomCellID"
     
     let postImagesController = PostDetailsImageCell()
+    
+    var event: Event?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +67,11 @@ class PostDetailsController: UIViewController {
         
         
         collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
+        let heightInset = (tabBarController?.tabBar.frame.height)! + 10
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInset, right: 0)
         collectionView.register(PostDetailsImageCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: postImagesCellID)
         collectionView.register(PostEventDetailsCell.self, forCellWithReuseIdentifier: postTitleCellID)
+        collectionView.register(PostDetailsBottomCell.self, forCellWithReuseIdentifier: postBottomCellID)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -88,24 +93,37 @@ class PostDetailsController: UIViewController {
 extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postTitleCellID, for: indexPath) as! PostEventDetailsCell
-        return cell
+        if indexPath.item == 0 {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postTitleCellID, for: indexPath) as! PostEventDetailsCell
+            cell.event = event
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postBottomCellID, for: indexPath) as! PostDetailsBottomCell
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cell = PostEventDetailsCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: .greatestFiniteMagnitude))
-        cell.layoutIfNeeded()
-        let estimatedSize = cell.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude))
-        return CGSize(width: view.frame.width, height: estimatedSize.height)
+        if indexPath.item == 0 {
+            
+            let cell = PostEventDetailsCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: .greatestFiniteMagnitude))
+            cell.layoutIfNeeded()
+            let estimatedSize = cell.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude))
+            return CGSize(width: view.frame.width, height: estimatedSize.height)
+        } else {
+            return CGSize(width: view.frame.width, height: 180)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: postImagesCellID, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: postImagesCellID, for: indexPath) as! PostDetailsImageCell
+        header.event = event
         return header
     }
     

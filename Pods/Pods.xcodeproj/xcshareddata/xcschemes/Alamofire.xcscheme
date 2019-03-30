@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EAAA1AD3A8A1B59AB91319EE40752C6D"
+               BuildableName = "Alamofire.framework"
+               BlueprintName = "Alamofire"
+               ReferencedContainer = "container:Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "BD3A3E17223ABC2E006B6A7A"
                BuildableName = "Sign Up Form.app"
                BlueprintName = "Sign Up Form"
@@ -32,10 +46,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BD3A3E17223ABC2E006B6A7A"
-            BuildableName = "Sign Up Form.app"
-            BlueprintName = "Sign Up Form"
-            ReferencedContainer = "container:../Sign Up Form.xcodeproj">
+            BlueprintIdentifier = "EAAA1AD3A8A1B59AB91319EE40752C6D"
+            BuildableName = "Alamofire.framework"
+            BlueprintName = "Alamofire"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -70,16 +84,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BD3A3E17223ABC2E006B6A7A"
-            BuildableName = "Sign Up Form.app"
-            BlueprintName = "Sign Up Form"
-            ReferencedContainer = "container:../Sign Up Form.xcodeproj">
+            BlueprintIdentifier = "EAAA1AD3A8A1B59AB91319EE40752C6D"
+            BuildableName = "Alamofire.framework"
+            BlueprintName = "Alamofire"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
