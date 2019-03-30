@@ -194,8 +194,6 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let postDetails = PostDetailsController()
-        let event = events[indexPath.item]
-        postDetails.eventDetails = event
         navigationController?.pushViewController(postDetails, animated: true)
     }
 }

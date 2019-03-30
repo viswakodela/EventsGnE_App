@@ -22,7 +22,7 @@ struct Event: Codable, Equatable {
 //    var Latitude: Double
 //    var Longitude: Double
 //    var Level: String
-    var MainEventPhoto: String?
+//    var MainEventPhoto: String?
 //    var PhoneNumber: String
 //    var EventPhotoCollection: [String]?
     
