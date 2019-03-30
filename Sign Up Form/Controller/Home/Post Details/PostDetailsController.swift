@@ -15,6 +15,12 @@ class PostDetailsController: UIViewController {
     
     let postImagesController = PostDetailsImageCell()
     
+    var eventDetails: Event? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -71,8 +77,7 @@ class PostDetailsController: UIViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var changeY = scrollView.contentOffset.y / 130
-//        var width = view.frame.width + changeY * 2
-//        width = max(width, view.frame.width)
+        
         if changeY > 1 {
             changeY = 1
             self.navigationController?.navigationBar.backgroundColor = UIColor(white: 0.7, alpha: 0.7)
@@ -93,6 +98,7 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postTitleCellID, for: indexPath) as! PostEventDetailsCell
+        cell.event = eventDetails
         return cell
     }
     
@@ -105,7 +111,8 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: postImagesCellID, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: postImagesCellID, for: indexPath) as! PostDetailsImageCell
+        header.event = eventDetails
         return header
     }
     

@@ -12,6 +12,13 @@ class PostDetailsImageCell: UICollectionViewCell {
     
     let postImagesController = PostImagesController()
     
+    var event: Event? {
+        didSet {
+            guard let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) else {return}
+            postImageView.sd_setImage(with: url)
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
