@@ -41,6 +41,8 @@ class HomeCell: UICollectionViewCell {
         
         guard let eventDate = event?.EventDate else {return}
         
+        let dateAttributedText = NSMutableAttributedString(string: "Date: ", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 10)!, NSAttributedString.Key.foregroundColor : UIColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 1)])
+        
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
@@ -51,7 +53,8 @@ class HomeCell: UICollectionViewCell {
         
         if let date = dateFormatter.date(from: eventDate) {
             let realDate = newDateFormatter.string(from: date)
-            dateLabel.text = "Date: \(realDate)"
+            dateAttributedText.append(NSAttributedString(string: realDate, attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 10)!, NSAttributedString.Key.foregroundColor : UIColor.lightGray]))
+            dateLabel.attributedText = dateAttributedText
         }
     }
     
@@ -110,7 +113,6 @@ class HomeCell: UICollectionViewCell {
     let dateLabel: CustomLabel = {
         let label = CustomLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Date:"
         label.font = UIFont(name: "HelveticaNeue", size: 10)
         label.textColor = UIColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 1)
         label.isUserInteractionEnabled = true
@@ -131,8 +133,6 @@ class HomeCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "5 spots left"
-//        label.font = UIFont(name: "HelveticaNeue", size: 12)
-//        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.allowsDefaultTighteningForTruncation = true
         return label
     }()

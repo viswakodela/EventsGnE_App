@@ -31,9 +31,9 @@ class HomeController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkPermission()
         setupLayout()
         setSearchBarController()
+        checkPermission()
         if let lattitude = self.lattitude, let longitude = self.longitude {
             fetchData(lattitude: lattitude, logitude: longitude, searchText: searchText, page: self.currentPage)
         }
@@ -44,12 +44,25 @@ class HomeController: UICollectionViewController {
         UIApplication.shared.statusBarView?.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .white
+        searchController.searchBar.backgroundColor = .white
     }
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let av = UIActivityIndicatorView(style: .gray)
+        av.translatesAutoresizingMaskIntoConstraints = false
+        av.startAnimating()
+        av.hidesWhenStopped = true
+        return av
+    }()
     
     fileprivate func setupLayout() {
         view.backgroundColor = UIColor(white: 0.95, alpha: 1)
         collectionView.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: homeCellID)
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     fileprivate func setSearchBarController() {
@@ -60,6 +73,7 @@ class HomeController: UICollectionViewController {
         collectionView.keyboardDismissMode = .onDrag
         collectionView.alwaysBounceVertical = true
         searchController.searchBar.delegate = self
+        searchController.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
     }
     
@@ -106,6 +120,8 @@ class HomeController: UICollectionViewController {
     func fetchData(lattitude: CLLocationDegrees, logitude: CLLocationDegrees, searchText: String?, page: Int?) {
         print("Fetching curretnt page: \(currentPage)")
         APIService.shared.fetchHomeFeedData(lattitude: lattitude, longitude: logitude, searchText: searchText, page: page) { [weak self] (events, err) in
+            
+            self?.activityIndicator.stopAnimating()
             
             if let error = err {
                 //TODO:- Show an Alert
@@ -207,7 +223,7 @@ extension HomeController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { [weak self] (_) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { [weak self] (_) in
             
             if let lattitide = self?.lattitude, let longitude = self?.longitude {
                 
@@ -240,35 +256,54 @@ extension HomeController: UISearchBarDelegate {
                     }
                 }
             }
-//            else if searchText == "" {
-//                self?.events.removeAll()
-//                self?.isPaginating = false
-//                self?.currentPage = 1
-//                
-//                APIService.shared.fetchHomeFeedData(lattitude: (self?.lattitude!)!, longitude: (self?.longitude!)!, searchText: "", page: self?.currentPage) { [weak self] (events, err) in
-//                    
-//                    if let error = err {
-//                        print(error.localizedDescription)
-//                    }
-//                    
-//                    guard let events = events else {return}
-//                    self?.events += events
-//                    
-//                    DispatchQueue.main.async {
-//                        self?.collectionView.reloadData()
-//                    }
-//                    
-//                    if events.count < 6 {
-//                        //This is to stop dowloading the last remaining Events
-//                        self?.isPaginating = true
-//                    } else {
-//                        self?.isPaginating = false
-//                    }
-//                }
-//            }
         })
     }
     
+    //When Cancel button is tapped we are doing the same thing as when search bar is Empty
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: { [weak self] (_) in
+            
+            if let lattitide = self?.lattitude, let longitude = self?.longitude {
+                
+                self?.events.removeAll()
+                self?.isPaginating = false
+                self?.searchText = ""
+                self?.currentPage = 1
+                
+                APIService.shared.fetchHomeFeedData(lattitude: lattitide, longitude: longitude, searchText: "", page: self?.currentPage) { [weak self] (events, err) in
+                    
+                    if let error = err {
+                        //TODO:- Show an Alert
+                        print(error.localizedDescription)
+                        return
+                    }
+                    
+                    
+                    guard let events = events else {return}
+                    self?.events += events
+                    
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadData()
+                    }
+                    
+                    if events.count < 6 {
+                        //This is to stop dowloading the last remaining Events
+                        self?.isPaginating = true
+                    } else {
+                        self?.isPaginating = false
+                    }
+                }
+            }
+        })
+    }
+}
+
+extension HomeController: UISearchControllerDelegate {
+    
+    func willPresentSearchController(_ searchController: UISearchController) {
+        print("presenting search Controller")
+    }
 }
 
 
