@@ -14,13 +14,13 @@ class HomeCell: UICollectionViewCell {
     var event: Event? {
         didSet {
             postTitleLabel.text = event?.Name
-            priceLabel.text = "$\(event?.EntranceFee ?? 0.0)"
+            priceLabel.text = "$\(String(describing: event?.EntranceFee ?? 0))"
             
             participantsLeftAttributedString()
             postAndAgeAttributedString()
             dateConvertion()
             
-            guard let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) else {return}
+            guard let imageURL = event?.EventPhotoCollection?.first, let url = URL(string: imageURL) else {return}
             postImageView.sd_setImage(with: url)
         }
     }

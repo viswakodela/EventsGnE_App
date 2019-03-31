@@ -23,9 +23,8 @@
 		BD61568D22442A390033EBA1 /* ForgetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD61568C22442A390033EBA1 /* ForgetPasswordController.swift */; };
 		BD61568F22459E100033EBA1 /* CofirmationCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD61568E22459E100033EBA1 /* CofirmationCodeController.swift */; };
 		BD6156912245A75A0033EBA1 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6156902245A75A0033EBA1 /* ChangePasswordController.swift */; };
+		BD6AAD322250533D0041A2FE /* SwipingPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6AAD312250533D0041A2FE /* SwipingPageController.swift */; };
 		BD8C6A1B22494ECA008A2583 /* PostDetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C6A1A22494ECA008A2583 /* PostDetailsImageCell.swift */; };
-		BD8C6A1D22494F18008A2583 /* PostImagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C6A1C22494F18008A2583 /* PostImagesController.swift */; };
-		BD8C6A1F224954DF008A2583 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C6A1E224954DF008A2583 /* ImageCell.swift */; };
 		BD8C6A212249562D008A2583 /* PostEventDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C6A202249562D008A2583 /* PostEventDetailsCell.swift */; };
 		BDB79444223CB0B400B181D2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB79443223CB0B300B181D2 /* User.swift */; };
 		BDB79447223D84C100B181D2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB79446223D84C100B181D2 /* APIService.swift */; };
@@ -62,9 +61,8 @@
 		BD61568C22442A390033EBA1 /* ForgetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordController.swift; sourceTree = "<group>"; };
 		BD61568E22459E100033EBA1 /* CofirmationCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CofirmationCodeController.swift; sourceTree = "<group>"; };
 		BD6156902245A75A0033EBA1 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
+		BD6AAD312250533D0041A2FE /* SwipingPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingPageController.swift; sourceTree = "<group>"; };
 		BD8C6A1A22494ECA008A2583 /* PostDetailsImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsImageCell.swift; sourceTree = "<group>"; };
-		BD8C6A1C22494F18008A2583 /* PostImagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImagesController.swift; sourceTree = "<group>"; };
-		BD8C6A1E224954DF008A2583 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		BD8C6A202249562D008A2583 /* PostEventDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEventDetailsCell.swift; sourceTree = "<group>"; };
 		BDB79443223CB0B300B181D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BDB79446223D84C100B181D2 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -218,7 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				BD287BAF224947A300FD2DA5 /* PostDetailsController.swift */,
-				BD8C6A1C22494F18008A2583 /* PostImagesController.swift */,
+				BD6AAD312250533D0041A2FE /* SwipingPageController.swift */,
 			);
 			path = "Post Details";
 			sourceTree = "<group>";
@@ -227,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				BD8C6A1A22494ECA008A2583 /* PostDetailsImageCell.swift */,
-				BD8C6A1E224954DF008A2583 /* ImageCell.swift */,
 				BD8C6A202249562D008A2583 /* PostEventDetailsCell.swift */,
 				BD1E67F6224F0661008A4A9F /* PostDetailsBottomCell.swift */,
 			);
@@ -437,9 +434,8 @@
 				BD287BAA22491B1E00FD2DA5 /* HomeController.swift in Sources */,
 				BD8C6A1B22494ECA008A2583 /* PostDetailsImageCell.swift in Sources */,
 				BDB7944B223D969400B181D2 /* UserDefaultsExtension.swift in Sources */,
-				BD8C6A1F224954DF008A2583 /* ImageCell.swift in Sources */,
+				BD6AAD322250533D0041A2FE /* SwipingPageController.swift in Sources */,
 				BD1E67F7224F0661008A4A9F /* PostDetailsBottomCell.swift in Sources */,
-				BD8C6A1D22494F18008A2583 /* PostImagesController.swift in Sources */,
 				BDB79449223D8D9900B181D2 /* UserDetailsController.swift in Sources */,
 				BDB7945C223F66FF00B181D2 /* UserDetailsCityAddressCell.swift in Sources */,
 				BDD429B5224C4BA300832995 /* Event.swift in Sources */,

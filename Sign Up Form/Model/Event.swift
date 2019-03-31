@@ -18,7 +18,7 @@ struct Event: Codable, Equatable {
     var EntranceFee: Decimal
 //    var EventCategory: String
     var EventDate: String
-    var NbParticipants: Int
+    var NbParticipants: Int?
     var NbParticipantsTaken: Int?
     var NbParticipantsLeft: Int?
 //    var IsFavorited: Bool
@@ -50,3 +50,24 @@ struct Event: Codable, Equatable {
 //    var EventPhotoCollection: [String]?
 //
 //}
+
+struct EventDetails: Codable {
+    var Address: String
+    let AgeCategoryID: Int
+    var Category: String
+    let CategoryID: Int
+    var Description: String?
+    var EntranceFee: Double?
+    var EventDate: String?
+    var EventName: String?
+    var EventPhotoCollection: [String]?
+    var IsFavorited: Bool?
+    var Level: String
+    var LevelID: Int
+    var MainEventPhoto: String?
+    var NbParticipants: Int
+    var NbParticipantsLeft: Int
+    var NbParticipantsTaken: Int
+    var PhoneNumber: String?
+    
+}

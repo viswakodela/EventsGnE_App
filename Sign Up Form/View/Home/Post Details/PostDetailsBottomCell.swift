@@ -10,7 +10,7 @@ import UIKit
 
 class PostDetailsBottomCell: UICollectionViewCell {
     
-    var event: Event? {
+    var eventDetails: EventDetails? {
         didSet {
             maxParticipantsAttributedString()
             takenAttributedString()
@@ -87,20 +87,20 @@ class PostDetailsBottomCell: UICollectionViewCell {
     fileprivate func maxParticipantsAttributedString() {
         
         let maxParticipantsAttributedString = NSMutableAttributedString(string: "Max Participants: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
-        maxParticipantsAttributedString.append(NSAttributedString(string: "\(event?.NbParticipants ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+        maxParticipantsAttributedString.append(NSAttributedString(string: "\(eventDetails?.NbParticipants ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
         maxParticipantsLabel.attributedText = maxParticipantsAttributedString
     }
     
     fileprivate func takenAttributedString() {
         
         let takenSeatsAttributedString = NSMutableAttributedString(string: "Taken: ", attributes: [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
-        takenSeatsAttributedString.append(NSAttributedString(string: "\(event?.NbParticipantsTaken ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+        takenSeatsAttributedString.append(NSAttributedString(string: "\(eventDetails?.NbParticipantsTaken ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
         takenSeatsLabel.attributedText = takenSeatsAttributedString
     }
     
     fileprivate func dateAttributedString() {
         
-        guard let eventDate = event?.EventDate else {return}
+        guard let eventDate = eventDetails?.EventDate else {return}
         
         let dateAttributedText = NSMutableAttributedString(string: "Date: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
         
@@ -122,7 +122,7 @@ class PostDetailsBottomCell: UICollectionViewCell {
     fileprivate func timeLabelAttributedString() {
         
         let timeAttributedString = NSMutableAttributedString(string: "Time: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
-        guard let eventDate = event?.EventDate else {return}
+        guard let eventDate = eventDetails?.EventDate else {return}
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -142,7 +142,7 @@ class PostDetailsBottomCell: UICollectionViewCell {
     
     fileprivate func leftSpotsAttributedString() {
         let leftAttributedString = NSMutableAttributedString(string: "Left: ", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
-        leftAttributedString.append(NSAttributedString(string: "\(event?.NbParticipantsLeft ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
+        leftAttributedString.append(NSAttributedString(string: "\(eventDetails?.NbParticipantsLeft ?? 0)", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2745098039, green: 0.2745098039, blue: 0.2745098039, alpha: 1)]))
         leftSeatsLabel.attributedText = leftAttributedString
     }
     

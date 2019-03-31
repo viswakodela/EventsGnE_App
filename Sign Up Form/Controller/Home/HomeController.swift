@@ -34,9 +34,6 @@ class HomeController: UICollectionViewController {
         setupLayout()
         setSearchBarController()
         checkPermission()
-        if let lattitude = self.lattitude, let longitude = self.longitude {
-            fetchData(lattitude: lattitude, logitude: longitude, searchText: searchText, page: self.currentPage)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +111,10 @@ class HomeController: UICollectionViewController {
             
             self.lattitude = location.latitude
             self.longitude = location.longitude
+            
+            if let lattitude = self.lattitude, let longitude = self.longitude {
+                fetchData(lattitude: lattitude, logitude: longitude, searchText: searchText, page: self.currentPage)
+            }
         }
     }
     
@@ -211,8 +212,19 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let postDetails = PostDetailsController()
         let event = events[indexPath.item]
-        postDetails.event = event
-        navigationController?.pushViewController(postDetails, animated: true)
+        
+        let eventID = event.ID
+        
+        APIService.shared.getEventDetailswithID(eventID: eventID) { [weak self] (event, err) in
+            
+            if let error = err {
+                print(error.localizedDescription)
+                //TODO:- Show Alert
+                return
+            }
+            postDetails.eventDetails = event
+            self?.navigationController?.pushViewController(postDetails, animated: true)
+        }
     }
 }
 

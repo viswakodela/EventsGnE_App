@@ -14,9 +14,8 @@ class PostDetailsController: UIViewController {
     private let postTitleCellID = "postTitleCellID"
     private let postBottomCellID = "postBottomCellID"
     
-    let postImagesController = PostDetailsImageCell()
     
-    var event: Event?
+    var eventDetails: EventDetails?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,18 +100,18 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
         if indexPath.item == 0 {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postTitleCellID, for: indexPath) as! PostEventDetailsCell
-            cell.event = event
+            cell.eventDetails = eventDetails
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postBottomCellID, for: indexPath) as! PostDetailsBottomCell
-            cell.event = event
+            cell.eventDetails = eventDetails
             cell.callButton.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
             return cell
         }
     }
     
     @objc func callButtonTapped() {
-        if let phone = event?.PhoneNumber {
+        if let phone = eventDetails?.PhoneNumber {
             phone.makeAColl()
         }
     }
@@ -122,7 +121,7 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
         if indexPath.item == 0 {
             
             let cell = PostEventDetailsCell(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: .greatestFiniteMagnitude))
-            cell.event = event
+            cell.eventDetails = eventDetails
             cell.layoutIfNeeded()
             let estimatedSize = cell.systemLayoutSizeFitting(CGSize(width: view.frame.width, height: .greatestFiniteMagnitude))
             return CGSize(width: view.frame.width, height: estimatedSize.height)
@@ -133,7 +132,9 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: postImagesCellID, for: indexPath) as! PostDetailsImageCell
-        header.event = event
+        header.swipingPage.eventDetails = eventDetails
+        header.swipingPage.view.isUserInteractionEnabled = true
+        header.swipingPage.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture)))
         return header
     }
     
@@ -142,37 +143,21 @@ extension PostDetailsController: UICollectionViewDelegate, UICollectionViewDataS
         let height = view.frame.height * 0.35
         return CGSize(width: width, height: height)
     }
-}
-
-extension String {
     
-    enum RegularExpressions: String {
-        case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
-    }
-    
-    func isValid(regex: RegularExpressions) -> Bool {
-        return isValid(regex: regex.rawValue)
-    }
-    
-    func isValid(regex: String) -> Bool {
-        let matches = range(of: regex, options: .regularExpression)
-        return matches != nil
-    }
-    
-    func onlyDigits() -> String {
-        let filtredUnicodeScalars = unicodeScalars.filter{CharacterSet.decimalDigits.contains($0)}
-        return String(String.UnicodeScalarView(filtredUnicodeScalars))
-    }
-    
-    func makeAColl() {
-        if isValid(regex: .phone) {
-            if let url = URL(string: "tel://\(self.onlyDigits())"), UIApplication.shared.canOpenURL(url) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
+    @objc func handleTapGesture() {
+        if let window = UIApplication.shared.keyWindow {
+            
+            let view = UIView()
+            view.frame = window.frame
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .red
+            print(view.frame)
+            
+            self.view.addSubview(view)
+            view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         }
     }
 }

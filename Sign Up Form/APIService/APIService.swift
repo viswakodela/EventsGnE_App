@@ -260,4 +260,33 @@ class APIService {
             })
         }
     }
+    
+    //Event Details API call
+    func getEventDetailswithID(eventID: Int, completion: @escaping (EventDetails?, Error?) -> ()) {
+        
+        APIService.shared.getAccessToken { (accessToken) in
+            
+            let eventIdURL = "http://eventswebapi2.us-east-2.elasticbeanstalk.com/api/v1/Event"
+            let params: Parameters = ["id" : eventID]
+            
+            let headers = ["Content-Type" : "application/x-www-form-urlencoded",
+                           "Authorization": "Bearer " + accessToken
+            ]
+            
+            Alamofire.request(eventIdURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON(completionHandler: { (dataResp) in
+                print(dataResp)
+                guard let data = dataResp.data else {return}
+                
+                do {
+                    let eventDetails = try JSONDecoder().decode(EventDetails.self, from: data)
+                    print(eventDetails)
+                    completion(eventDetails, nil)
+                } catch {
+                    print(error.localizedDescription)
+                    completion(nil, error)
+                    //TODO:- Show an Alert with the message
+                }
+            })
+        }
+    }
 }

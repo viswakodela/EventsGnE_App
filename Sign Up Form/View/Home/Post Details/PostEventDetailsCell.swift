@@ -10,15 +10,15 @@ import UIKit
 
 class PostEventDetailsCell: UICollectionViewCell {
     
-    var event: Event? {
+    var eventDetails: EventDetails? {
         didSet {
-            postTitleLabel.text = event?.Name
+            postTitleLabel.text = eventDetails?.EventName
             addressAttributedText()
             entrenceAttributedText()
             eventLevelAttributedText()
-            descriptionDetailsLabel.text = event?.Description
+            descriptionDetailsLabel.text = eventDetails?.Description
             
-            if let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) {
+            if let imageURL = eventDetails?.MainEventPhoto, let url = URL(string: imageURL) {
                 userImageView.sd_setImage(with: url)
                 
                 if userImageView.image == nil {
@@ -32,7 +32,7 @@ class PostEventDetailsCell: UICollectionViewCell {
     
     fileprivate func addressAttributedText() {
         let addressAttributedString = NSMutableAttributedString(string: "⚲", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 14)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3176470588, green: 0.4470588235, blue: 0.8078431373, alpha: 1)])
-        addressAttributedString.append(NSAttributedString(string: " \(event?.Address ?? "N/A")", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 12)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3176470588, green: 0.4470588235, blue: 0.8078431373, alpha: 1)]))
+        addressAttributedString.append(NSAttributedString(string: " \(eventDetails?.Address ?? "N/A")", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 12)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3176470588, green: 0.4470588235, blue: 0.8078431373, alpha: 1)]))
         addressLabel.attributedText = addressAttributedString
     }
     
@@ -40,10 +40,10 @@ class PostEventDetailsCell: UICollectionViewCell {
         
         let entrenceAttributeText = NSMutableAttributedString(string: "Entrence: ", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
         
-        if event?.EntranceFee == 0 {
+        if eventDetails?.EntranceFee == 0.0 {
             entrenceAttributeText.append(NSAttributedString(string: "Free", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!]))
         } else {
-            entrenceAttributeText.append(NSAttributedString(string: "﹩\(event?.EntranceFee ?? 0)", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]))
+            entrenceAttributeText.append(NSAttributedString(string: "﹩\(eventDetails?.EntranceFee ?? 0)", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]))
         }
         
         entrenceLabel.attributedText = entrenceAttributeText
@@ -51,7 +51,7 @@ class PostEventDetailsCell: UICollectionViewCell {
     
     fileprivate func eventLevelAttributedText() {
         let levelAttributedText = NSMutableAttributedString(string: "Level: ", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.6078431373, green: 0.6039215686, blue: 0.6039215686, alpha: 1)])
-        levelAttributedText.append(NSAttributedString(string: event?.Level ?? "N/A", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]))
+        levelAttributedText.append(NSAttributedString(string: eventDetails?.Level ?? "N/A", attributes: [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue", size: 18)!, NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)]))
         levelLabel.attributedText = levelAttributedText
     }
     
