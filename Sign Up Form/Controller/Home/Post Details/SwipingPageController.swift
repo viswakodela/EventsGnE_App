@@ -92,23 +92,19 @@ class PhotoController: UIViewController {
     }
     
     
-    @objc func handleTapGesture() {
+    @objc func handleTapGesture(gesture: UITapGestureRecognizer) {
       print("Image Tapped")
         
-//        if let window = UIApplication.shared.keyWindow {
-//            
-//            let view = UIView()
-//            view.frame = window.frame
-//            view.translatesAutoresizingMaskIntoConstraints = false
-//            view.backgroundColor = .red
-//            print(view.frame)
-//            
-//            self.view.addSubview(view)
-//            view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-//            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-//            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-//            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-//        }
+        let imageView = gesture.view as! UIImageView
+        
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.translatesAutoresizingMaskIntoConstraints = false
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        
+        self.view.addSubview(newImageView)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

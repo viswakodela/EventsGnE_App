@@ -17,8 +17,9 @@ class PostEventDetailsCell: UICollectionViewCell {
             entrenceAttributedText()
             eventLevelAttributedText()
             descriptionDetailsLabel.text = eventDetails?.Description
+            userNameLabel.text = eventDetails?.EventOrganizerName
             
-            if let imageURL = eventDetails?.MainEventPhoto, let url = URL(string: imageURL) {
+            if let imageURL = eventDetails?.EventOrganizerPhoto, let url = URL(string: imageURL) {
                 userImageView.sd_setImage(with: url)
                 
                 if userImageView.image == nil {

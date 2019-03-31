@@ -69,5 +69,8 @@ struct EventDetails: Codable {
     var NbParticipantsLeft: Int
     var NbParticipantsTaken: Int
     var PhoneNumber: String?
+    var EventOrganizerName: String
+    var EventOrganizerPhoto: String?
+    var UserID: Int
     
 }

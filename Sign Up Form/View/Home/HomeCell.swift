@@ -20,7 +20,7 @@ class HomeCell: UICollectionViewCell {
             postAndAgeAttributedString()
             dateConvertion()
             
-            guard let imageURL = event?.EventPhotoCollection?.first, let url = URL(string: imageURL) else {return}
+            guard let imageURL = event?.MainEventPhoto, let url = URL(string: imageURL) else {return}
             postImageView.sd_setImage(with: url)
         }
     }
